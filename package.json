@@ -1,0 +1,12 @@
+{
+  "name": "generic-paginate",
+  "version": "0.0.1",
+  "description": "A simple class that calculates pagination params that is easly usable in a View",
+  "main": "lib/paginate.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "Harish.K",
+  "license": "BSD"
+}
