@@ -41,6 +41,8 @@ return Mango.count( conditions, function( err, count ){
 
 /*
  * pagination = {
+ *     next: 7,
+ *     prev: 5,
  *     page: 6,
  *     range: { '3': '', '4': '', '5': '', '6': 'active', '7': '' },
  *     total: 7,
