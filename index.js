@@ -1,8 +1,8 @@
 'use strict';
 /**
  * @typedef {Object} PaginationData
- * @property {Number|undefined} next - next page number. undefined if there is no next page
- * @property {Number|undefined} prev - previous page number. undefined if there is no previous page
+ * @property {( Number|undefined )} next - next page number. `undefined` if there is no next page
+ * @property {( Number|undefined )} prev - previous page number. `undefined` if there is no previous page
  * @property {Number} currentPage - current page number
  * @property {Number} totalPages - total number of pages
  * @property {Number} totalItems - total number of items

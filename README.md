@@ -23,11 +23,11 @@ Calculate pagination data using given params
 | [opts.inactiveClass] | <code>string</code> | <code>&quot;inactive&quot;</code> | HTML class attribute to be applied for current page button |
 
 
-##### Properties of output
+##### Properties of output paginationData
 | Name | Type | Description |
 | --- | --- | --- |
-| next | <code>Number</code> &#124; <code>undefined</code> | next page number. undefined if there is no next page |
-| prev | <code>Number</code> &#124; <code>undefined</code> | previous page number. undefined if there is no previous page |
+| next | <code>Number</code> &#124; <code>undefined</code> | next page number. `undefined` if there is no next page |
+| prev | <code>Number</code> &#124; <code>undefined</code> | previous page number. `undefined` if there is no previous page |
 | currentPage | <code>Number</code> | current page number |
 | totalPages | <code>Number</code> | total number of pages |
 | totalItems | <code>Number</code> | total number of items |
