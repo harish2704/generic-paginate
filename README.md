@@ -1,106 +1,87 @@
-Generic-paginate
-================
+# generic-paginate
 
-A simple Javascript class for calculating pagination data that can be easily used in template file.
+A simple Javascript function for calculating pagination data which can be easily integrated into any view-layer
 
-Usage
------
+## Usage
+```
+npm i generic-paginate -S
+```
+this module exports a single function called `paginate`
 
-Usage in controller
-```js
-var options = {
-    activeClass: 'active',
-    inactiveClass: '',
-    defaults: {
-        size: 2,        // Result per page
-        listLength: 2,  // Length pagination Result.
-        // eg:  listLength = 2; ==>  <<  5, 6, 7, 8, 9  >>
-        //      listLength = 1; ==>  <<  6, 7, 8  >>
-    }
-};
-var Paginator = require('generic-paginate');
-var paginator = Paginator( options );
-return Mango.count( conditions, function( err, count ){
-    var paginationParams = {};
-    paginationParams.count = count;
-    paginationParams.page = req.query.page;     // Page number
-    paginationParams.size = req.query.size;     // Result per page
-    var pagination = paginator.paginate( paginationParams );
-    return Mango.find(conditions)
-    .sort( sort )
-    .skip(pagination.start-1)
-    .limit ( pagination.size )
-    .exec(function( err, mangoes ){
-        var data = {
-            mangoes: mangoes,
-        pagination: pagination
-        };
-        return res.render('mangoes/index', data );
-    });
-});
+#### paginate(total, skip, limit, opts) ⇒ paginationData
+Calculate pagination data using given params
+
+##### Arguments
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| total | <code>Number</code> |  | Total number of records |
+| skip | <code>Number</code> |  | Number of records to be skiped. AKA offset |
+| [limit] | <code>Number</code> | <code>10</code> | Number of items per page |
+| [opts] | <code>Object</code> | <code>{}</code> | additional options |
+| [opts.buttonCount] | <code>Number</code> | <code>5</code> | length of pagination button list.  <b>Eg:</b>  <ul>    <li>      < 2, *3*, 4, >  -> Means buttonCount=3    </li>    <li>      < 2, *3*, 4, 5, 6 >  -> Means buttonCount=5    </li>    <li>      < 2, *3*, 4, 5, 6, 7, 9 >  -> Means buttonCount=7    </li>  </ul> |
+| [opts.activeClass] | <code>string</code> | <code>&quot;active&quot;</code> | HTML class attribute to be applied for button other than current page button |
+| [opts.inactiveClass] | <code>string</code> | <code>&quot;inactive&quot;</code> | HTML class attribute to be applied for current page button |
+
+
+##### Properties of output
+| Name | Type | Description |
+| --- | --- | --- |
+| next | <code>Number</code> &#124; <code>undefined</code> | next page number. undefined if there is no next page |
+| prev | <code>Number</code> &#124; <code>undefined</code> | previous page number. undefined if there is no previous page |
+| currentPage | <code>Number</code> | current page number |
+| totalPages | <code>Number</code> | total number of pages |
+| totalItems | <code>Number</code> | total number of items |
+| limit | <code>Number</code> | items per page. copied from argument |
+| skip | <code>Number</code> | no of skipped records. copied from argument |
+| buttons | <code>Array.&lt;Object&gt;</code> | array of buttons in the pagination list |
+| buttons[].page | <code>Number</code> | page number of button |
+| buttons[].class | <code>string</code> | html class of button.<br> current page will have `opts.inactiveClass` and all others will have `opts.activeClass` |
+
+
+### Example
+
+```javascript
+var Paginate = require('generic-paginate');
+
+// 37 total items,
+// 10 items/page,
+// skipping first 20 => current page is 3
+
+var paginationData = Paginate( 37, 20, 10 );
+console.log( paginationData );
 
 /*
- * pagination = {
- *     next: 7,
- *     prev: 5,
- *     currentPage: 6,
- *     range: { '3': '', '4': '', '5': '', '6': 'active', '7': '' },
- *     totalPages: 7,
- *     totalItems: 13
- *     size: 2,
- *     start: 11
- * };
- */
-
+Output will be
+{ next: 4,
+  prev: 2,
+  currentPage: 3,
+  buttons:
+   [ { page: 1, class: 'inactive' },
+     { page: 2, class: 'inactive' },
+     { page: 3, class: 'active' },
+     { page: 4, class: 'inactive' } ],
+  totalPages: 4,
+  totalItems: 37,
+  limit: 10,
+  skip: 20 }
+*/
 ```
 
-and the template for Ect.Js is 
+##### A sample AngularJs tempalte will be like this
+
 ```html
 <ul class="pagination">
-    <li><a href="/mangoes?page=1">&laquo;</a></li>
-    <% for page, className of @pagination.range : %>
-    <li class="<%= className %>"><a href="/mangoes?page=<%= page %>"><%= page %></a></li>
-    <% end %>
-    <li><a href="/mangoes?page=<%= @pagination.total %>">&raquo;</a></li>
+    <li ng-enable="pagination.prev" >
+      <a href="/mangoes?page={{ pagination.prev }}">&laquo;</a>
+    </li>
+    <li ng-repeat="button in pagination.buttons" ng-class="{{ button.class }}">
+      <a href="/mangoes?page={{ button.page }}">{{ button.page }}</a>
+    </li>
+    <li ng-enable="pagination.next">
+      <a href="/mangoes?page={{ pagination.next }}">&raquo;</a>
+    </li>
 </ul>
+<span>Showing page: {{ pagination.currentPage}}/{{pagination.totalPages}} </span>
+<span>Total items: {{ pagination.totalItems}}</span>
 ```
-## Class Paginator ## 
-
-### Initialization ###
-```js
-var paginator = Paginator( options )
-```
-### @arg options ###
-* Type: Object
-* Structure:
-    * ```activeClass```     : class name used for current page
-    * ```inactiveClass```   : class name used for all other pages
-    * ```defaults```        : Object. Used as default vule for instance.paginate function.
-        * ```size```        : Results per page. Default=10
-        * ```listLength```  : number of pages listed in both sides of centre item Default=2
-
-## Methods ##
-
-### paginate ###
-calculate pagination data.
-
-#### Usage ####
-```js
-var pagination = paginator.paginate( options );
-```
-
-#### @arg options ####
-* options   : Structure
-    * ```count```       : Total number of items.
-    * ```page```        : current page. Default = 1
-    * ```size```        : overides Initialization param defaults.size
-    * ```listLength```  : overides Initialization param defaults.listLength
-
-#### returns ####
-* Type: Object
-    * ```page```  : current page
-    * ```range``` : a map of pagenumer to its className.
-    * ```total``` : total number of pages
-    * ```size```  : Result per pages.
-    * ```start``` : starting number of results
 
