@@ -38,7 +38,7 @@ Calculate pagination data using given params
 | buttons[].class | <code>string</code> | html class of button.<br> current page will have `opts.inactiveClass` and all others will have `opts.activeClass` |
 
 
-### Example
+### Example ( Nodejs )
 
 ```javascript
 var Paginate = require('generic-paginate');
@@ -65,6 +65,31 @@ Output will be
   limit: 10,
   skip: 20 }
 */
+```
+
+### Example ( Browser )
+
+```html
+<script src="https://unpkg.com/generic-paginate" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+  var pagintionData = GenericPaginate( 37, 20, 10 );
+  console.log( pagintionData );
+  /*
+  Output will be
+  { next: 4,
+    prev: 2,
+    currentPage: 3,
+    buttons:
+     [ { page: 1, class: 'inactive' },
+       { page: 2, class: 'inactive' },
+       { page: 3, class: 'active' },
+       { page: 4, class: 'inactive' } ],
+    totalPages: 4,
+    totalItems: 37,
+    limit: 10,
+    skip: 20 }
+  */
+</script>
 ```
 
 ##### A sample AngularJs tempalte will be like this

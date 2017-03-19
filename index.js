@@ -95,4 +95,8 @@ function paginate( total, skip, limit, opts ){
   };
 }
 
-module.exports = paginate;
+if( typeof module !== 'undefined' ){
+  module.exports = paginate;
+} else {
+  window.GenericPaginate = paginate;
+}
