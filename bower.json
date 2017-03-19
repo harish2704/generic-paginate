@@ -1,0 +1,21 @@
+{
+  "name": "generic-paginate",
+  "description": "A simple class that calculates pagination params that is easly usable in a View",
+  "main": "./index.js",
+  "authors": [
+    "Harish.K<harish2704@gmail.com>"
+  ],
+  "license": "BSD",
+  "keywords": [
+    "paginate",
+    "paginator"
+  ],
+  "homepage": "https://github.com/harish2704/generic-paginate",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
