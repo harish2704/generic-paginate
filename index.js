@@ -71,7 +71,7 @@ function paginate( total, skip, limit, opts ){
   end = ( pageNumber + buttonCount  + carry );
 
   if ( end > pageCount  ){
-    carry = pageNumber + buttonCount - pageCount;
+    carry = end - pageCount;
     end = pageCount;
     start = ( start - carry ) < 1 ? 1 : ( start - carry );
   }

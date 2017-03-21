@@ -1,6 +1,6 @@
 {
     "name": "generic-paginate",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "A simple class that calculates pagination params that is easly usable in a View",
     "main": "./index.js",
     "scripts": {
