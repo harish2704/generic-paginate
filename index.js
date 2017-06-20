@@ -25,7 +25,7 @@
  <ul>
    <li>
      < 2, *3*, 4, >  -> Means buttonCount=3
-   </li>
+   </li>activeClass
    <li>
      < 2, *3*, 4, 5, 6 >  -> Means buttonCount=5
    </li>
@@ -33,8 +33,8 @@
      < 2, *3*, 4, 5, 6, 7, 9 >  -> Means buttonCount=7
    </li>
  </ul>
- * @param {string} [ opts.activeClass=active ] - HTML class attribute to be applied for button other than current page button
- * @param {string} [ opts.inactiveClass=inactive ] - HTML class attribute to be applied for current page button
+ * @param {string} [ opts.activeClass='active' ] - HTML class attribute to be applied for current page button
+ * @param {string} [ opts.inactiveClass='' ] - HTML class attribute to be applied for button other than current page button
  * @returns {PaginationData}
  */
 function paginate( total, skip, limit, opts ){
@@ -55,8 +55,8 @@ function paginate( total, skip, limit, opts ){
   limit = parseInt(limit) || 10;
   opts = opts || {};
   buttonCount = opts.buttonCount || 5;
-  activeClass = opts.activeClass || 'active';
-  inactiveClass = opts.activeClass || 'inactive';
+  activeClass = opts.hasOwnProperty( 'activeClass' ) ? opts.activeClass : 'active';
+  inactiveClass = opts.hasOwnProperty( 'inactiveClass' ) ? opts.inactiveClass : '';
 
   pageNumber = Math.floor( skip/limit )+1;
   buttonCount = Math.floor( buttonCount/2 );

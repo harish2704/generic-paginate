@@ -19,8 +19,8 @@ Calculate pagination data using given params
 | [limit] | <code>Number</code> | <code>10</code> | Number of items per page |
 | [opts] | <code>Object</code> | <code>{}</code> | additional options |
 | [opts.buttonCount] | <code>Number</code> | <code>5</code> | length of pagination button list.  <b>Eg:</b>  <ul>    <li>      < 2, *3*, 4, >  -> Means buttonCount=3    </li>    <li>      < 2, *3*, 4, 5, 6 >  -> Means buttonCount=5    </li>    <li>      < 2, *3*, 4, 5, 6, 7, 9 >  -> Means buttonCount=7    </li>  </ul> |
-| [opts.activeClass] | <code>string</code> | <code>&quot;active&quot;</code> | HTML class attribute to be applied for button other than current page button |
-| [opts.inactiveClass] | <code>string</code> | <code>&quot;inactive&quot;</code> | HTML class attribute to be applied for current page button |
+| [opts.activeClass] | <code>string</code> | <code>&quot;&#x27;active&#x27;&quot;</code> | HTML class attribute to be applied for current page button |
+| [opts.inactiveClass] | <code>string</code> | <code>&quot;&#x27;&#x27;&quot;</code> | HTML class attribute to be applied for button other than current page b
 
 
 ##### Properties of output paginationData
